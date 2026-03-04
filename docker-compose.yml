@@ -1,0 +1,8 @@
+services:
+  spark:
+    build: .
+    user: root
+    volumes:
+      - .:/home/jovyan/work
+    working_dir: /home/jovyan/work
+    command: spark-submit --packages io.delta:delta-spark_2.12:3.1.0 --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" --conf "spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog" scripts/etl_pipeline.py
