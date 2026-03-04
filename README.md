@@ -13,29 +13,38 @@ Sentinel-Spark is a high-performance data engineering pipeline designed to proce
 * **Testing & Quality:** PyTest, Great Expectations
 
 ## 🏗️ Key Features & Optimizations
-* **Data Skew Mitigation (Salting):** Prevented executor bottlenecks by adding random prefixes to skewed keys, ensuring uniform data distribution.
-* **Performance Tuning:** Leveraged **Broadcast Joins** for dimension tables, reducing network shuffle overhead.
-* **Audit-Grade Integrity:** ACID-compliant Delta Lake logic ensures 100% data reliability for financial reporting.
-* **Unit Testing:** Integrated `pytest-spark` for transformation-level verification.
+*   **Data Skew Mitigation (Salting):** Prevented executor bottlenecks by adding random prefixes to skewed keys, ensuring uniform data distribution.
+*   **Performance Tuning:** Leveraged **Broadcast Joins** for dimension tables, reducing network shuffle overhead.
+*   **Audit-Grade Integrity:** ACID-compliant Delta Lake logic ensures 100% data reliability for financial reporting.
+*   **Orchestration (Apache Airflow):** Pipeline scheduled with a DAG managing task dependencies, retries, and monitoring.
+*   **Data Quality (Great Expectations):** Automated validation suite for schema enforcement and data profiling.
+*   **Unit Testing:** Integrated `pytest-spark` for transformation-level verification.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Docker & Docker Compose
 
-### Run the ETL Pipeline
-1. **Generate Sample Data:**
+### Run the Pipeline (Enterprise Flow)
+1. **Build Environment:**
    ```bash
-   python scripts/generate_sample_data.py
+   docker-compose build
    ```
-2. **Run Pipeline (Docker):**
+2. **Execute Full Orchestrated Flow:**
    ```bash
    docker-compose up
    ```
-3. **Run Tests:**
+3. **Run Data Quality Tests:**
    ```bash
    docker-compose run spark pytest tests/test_etl.py
    ```
 
-## 📊 Star Schema DDL
-The Hive/Delta Lake schema is defined in `sql/schema.sql`, featuring a partitioned Fact Table for sub-minute processing.
+## 📂 Project Architecture (Lakehouse & DataOps)
+```text
+├── dags/            # Apache Airflow Orchestration (Task Scheduling & Retries)
+├── gx/              # Great Expectations Suite (Automated Data Quality Reports)
+├── scripts/         # PySpark ETL (Delta Lake + Salted/Broadcast Optimization)
+├── sql/             # Star Schema Definition (Fact/Dimension DDL)
+├── tests/           # PyTest-Spark (Unit Testing Suite)
+└── docker-compose/  # Containerized Infrastructure
+```
