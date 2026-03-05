@@ -1,0 +1,35 @@
+{
+  "data_asset_type": "Dataset",
+  "expectation_suite_name": "financial_data_quality_suite",
+  "expectations": [
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "transaction_id"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_of_type",
+      "kwargs": {
+        "column": "amount",
+        "type_": "double"
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_greater_than",
+      "kwargs": {
+        "column": "amount",
+        "value": 0
+      }
+    },
+    {
+        "expectation_type": "expect_column_to_exist",
+        "kwargs": {
+            "column": "user_id"
+        }
+    }
+  ],
+  "meta": {
+    "great_expectations_version": "0.18.8"
+  }
+}

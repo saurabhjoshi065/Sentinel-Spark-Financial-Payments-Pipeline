@@ -7,9 +7,13 @@ checkpoint/
 
 # Data
 data/
-*.json
 *.parquet
 *.csv
+
+# Data (Ignore raw files, allow GX config)
+raw/*.json
+data/raw/transactions/*.json
+!gx/**/*.json
 
 # Python
 __pycache__/
